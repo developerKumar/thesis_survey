@@ -1,0 +1,70 @@
+
+
+Total Scores
+
+${e://Field/total_score_1}
+
+${e://Field/total_score_2}
+
+${e://Field/total_score_3}
+
+${e://Field/total_score_4}
+
+${e://Field/total_score_5}
+
+${e://Field/total_score_6}
+
+${e://Field/total_score_7}
+
+${e://Field/total_score_8}
+
+
+Matrix scores -
+
+DM
+
+IM
+
+VM
+
+IF
+
+VF
+
+DF
+
+VC
+
+DC
+
+IC
+
+
+ http://localhost:3000/results?dm=${e://Field/q1_1_ranking}&im=${e://Field/q1_2_ranking}&vm=${e://Field/q1_3_ranking}&if=${e://Field/q2_1_ranking}&vf=${e://Field/q2_2_ranking}&df=${e://Field/q2_3_ranking}&vc=${e://Field/q3_1_ranking}&dc=${e://Field/q3_2_ranking}&ic=${e://Field/q3_3_ranking}&total1=${e://Field/total_score_1}&total2=${e://Field/total_score_2}&total3=${e://Field/total_score_3}&total4=${e://Field/total_score_4}&total5=${e://Field/total_score_5}&total6=${e://Field/total_score_6}&total7=${e://Field/total_score_7}&total8=${e://Field/total_score_8}
+
+
+
+
+################################################
+
+Top strategy for Type of programming task
+
+debugging - DM + DF + DC
+
+verification/testing - VM + VF + VC
+
+implementation = IM + IF + IC
+
+
+Top strategy for Programming style/pattern
+
+Code you own
+
+framework Code
+
+callbacks
+
+
+##################################NOTES#####
+var values = Object.keys(tempScore).map(function (key) { return tempScore[key]; });
+let i = values.indexOf(Math.max(...values));
