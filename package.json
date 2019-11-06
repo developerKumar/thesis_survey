@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/cassandrabailey293/thesis_survey#readme",
   "dependencies": {
+    "@globocom/share-bar": "^3.1.5",
     "d3": "^5.12.0",
     "ejs": "^2.7.1",
     "express": "^4.17.1",
