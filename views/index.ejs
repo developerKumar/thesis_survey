@@ -44,13 +44,13 @@
         function drawChart() {
           var data = google.visualization.arrayToDataTable([
           ['Persona', 'Respondants'],
-          ['Calculated', 8],
-          ['Experimental', 2],
-          ['Resourceful', 4]
+          ['Calculated', <%= metrics.numCalculated %>],
+          ['Experimental', <%= metrics.numExperimental %>],
+          ['Resourceful', <%= metrics.numResourceful %>]
         ]);
 
           // Optional; add a title and set the width and height of the chart
-          var options = {'title':'My Average Day', 'width':550, 'height':400};
+          var options = {'title':'Overall Responses', 'width':550, 'height':400};
 
           // Display the chart inside the <div> element with id="piechart"
           var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -80,8 +80,6 @@
         <h3>IC:</h3>
         <%- JSON.stringify(data.ic) %>
         <br><br>
-        <h2> Here's the database so far: </h2>
-        <%- str %>
     </div>
 </main>
 

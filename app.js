@@ -20,30 +20,23 @@ firebase.initializeApp({
 
 var db = firebase.firestore();
 var ref = firebase.database().ref;
-var metricsDocRef = 0;
-db.collection("metrics").add({
-    numCalculated: 0,
-    numExperimental: 0,
-    numResourceful: 0,
-    numCalculated_D: 0,
-    numExperimental_D: 0,
-    numResourceful_D: 0,
-    numCalculated_V: 0,
-    numExperimental_V: 0,
-    numResourceful_V: 0,
-    numCalculated_I: 0,
-    numExperimental_I: 0,
-    numResourceful_I: 0
-}).then(function(docRef) {
-  metricsDocRef = docRef.id;
-})
+var metricsDocRef = "metricsDoc";
+// db.collection("metrics").doc(metricsDocRef).set({
+//     numCalculated: 0,
+//     numExperimental: 0,
+//     numResourceful: 0,
+//     numCalculated_D: 0,
+//     numExperimental_D: 0,
+//     numResourceful_D: 0,
+//     numCalculated_V: 0,
+//     numExperimental_V: 0,
+//     numResourceful_V: 0,
+//     numCalculated_I: 0,
+//     numExperimental_I: 0,
+//     numResourceful_I: 0
+// })
 
 function call_results(req, res) {
-  var options = {
-    args:
-    [
-    ]
-  }
   var data = {
     dm: JSON.parse(req.query.dm),
     im: JSON.parse(req.query.im),
@@ -64,7 +57,7 @@ function call_results(req, res) {
     ts8: JSON.parse(req.query.total8)
   }
 
-var calculated = parseInt(data.ts4) + parseInt(data.ts6);
+var calculated = parseInt(data.ts4) + parseInt(data.ts8);
 var experimental = 0.66*(parseInt(data.ts1) + parseInt(data.ts2) + parseInt(data.ts3));
 var resourceful = 0.66*(parseInt(data.ts5) + parseInt(data.ts6) + parseInt(data.ts7));
 
@@ -88,12 +81,11 @@ var resourceful = 0.66*(parseInt(data.ts5) + parseInt(data.ts6) + parseInt(data.
     desc: persona.desc
   })
 .then(function(docRef) {
-  var str = "";
   // new ShareBar({'facebookAppId': '549011802567468'});
-  var respRef = db.collection("metrics");
-  respRef.get().then((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-      var metrics = doc.data();
+  var respRef = db.collection("metrics").doc(metricsDocRef);
+  respRef.get().then((docSnapshot) => {
+    if (docSnapshot.exists) {
+      var metrics = docSnapshot.data();
       if (persona.name == "Calculated") {
         metrics.numCalculated += 1
       } else if (persona.name == "Experimental") {
@@ -101,15 +93,38 @@ var resourceful = 0.66*(parseInt(data.ts5) + parseInt(data.ts6) + parseInt(data.
       } else if (persona.name == "Resourceful") {
         metrics.numResourceful += 1
       }
-      db.collection("metrics").doc(metricsDocRef).update(metrics)
+      db.collection("metrics").doc(metricsDocRef).set(metrics)
+    } else {
+      db.collection("metrics").doc(metricsDocRef).set({
+          numCalculated: 0,
+          numExperimental: 0,
+          numResourceful: 0,
+          numCalculated_D: 0,
+          numExperimental_D: 0,
+          numResourceful_D: 0,
+          numCalculated_V: 0,
+          numExperimental_V: 0,
+          numResourceful_V: 0,
+          numCalculated_I: 0,
+          numExperimental_I: 0,
+          numResourceful_I: 0
+      })
+    }
+    res.render('index', {data: data, persona: persona.name, desc: persona.desc, metrics: metrics});
+  })
+    // querySnapshot.forEach((doc) => {
+    //   var metrics = doc.data();
+    //   if (persona.name == "Calculated") {
+    //     metrics.numCalculated += 1
+    //   } else if (persona.name == "Experimental") {
+    //     metrics.numExperimental += 1
+    //   } else if (persona.name == "Resourceful") {
+    //     metrics.numResourceful += 1
+    //   }
+    //   db.collection("metrics").doc(metricsDocRef).update(metrics)
       // firebase.database().ref(metricsDocRef).set(metrics);
-      str = str.concat(`${doc.id} => ${JSON.stringify(doc.data().data)} \n`);
-      res.render('index', {data: data, str: str, persona: persona.name, desc: persona.desc, metrics: metrics});
-    });
-    console.log("Get success: ", str);
-    // res.render('index', {data: data, str: str, persona: persona.name, desc: persona.desc, metrics: });
-});
     console.log("Document written with ID: ", docRef.id);
+    // res.render('index', {data: data, str: str, persona: persona.name, desc: persona.desc, metrics: });
 })
 .catch(function(error) {
     console.error("Error adding document: ", error);
