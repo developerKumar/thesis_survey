@@ -4,6 +4,10 @@ var app = express();
 // set the view engine to ejs
 app.set('view engine', 'ejs');
 
+// using app.use to serve up static CSS files in public/assets/ folder when /public link is called in ejs files
+// app.use("/route", express.static("foldername"));
+app.use('/public', express.static('public'));
+
 var d3 = require("d3");
 
 const firebase = require("firebase");
@@ -21,20 +25,7 @@ firebase.initializeApp({
 var db = firebase.firestore();
 var ref = firebase.database().ref;
 var metricsDocRef = "metricsDoc";
-// db.collection("metrics").doc(metricsDocRef).set({
-//     numCalculated: 0,
-//     numExperimental: 0,
-//     numResourceful: 0,
-//     numCalculated_D: 0,
-//     numExperimental_D: 0,
-//     numResourceful_D: 0,
-//     numCalculated_V: 0,
-//     numExperimental_V: 0,
-//     numResourceful_V: 0,
-//     numCalculated_I: 0,
-//     numExperimental_I: 0,
-//     numResourceful_I: 0
-// })
+var count = 0;
 
 function call_results(req, res) {
   var data = {
@@ -74,6 +65,15 @@ var resourceful = 0.66*(parseInt(data.ts5) + parseInt(data.ts6) + parseInt(data.
     console.log("debugScoreTotals(", i, "): ", debugScoreTotals[i])
   }
 
+//   var shareBar = new ShareBar(
+//     {'facebookAppId': '549011802567468',
+//     onShare: function (button) {
+//     alert(button.innerHTML);
+//   }
+// });
+
+// document.getElementById("share-bar").innerHTML = shareBar;
+
 
 
   var persona = getPersona(calculated, experimental, resourceful);
@@ -85,22 +85,15 @@ var resourceful = 0.66*(parseInt(data.ts5) + parseInt(data.ts6) + parseInt(data.
     desc: persona.desc
     })
 .then(function(docRef) {
-  // new ShareBar({'facebookAppId': '549011802567468'});
   var respRef = db.collection("metrics").doc(metricsDocRef);
   respRef.get().then((docSnapshot) => {
     if (docSnapshot.exists) {
       var data = docSnapshot.data()
       console.log(">>>>SUB PERSONAS!!!!: ", JSON.stringify(subPersonas))
-      var metrics = updateMetrics(data, persona, subPersonas);
-      // if (persona.name == "Calculated") {
-      //   metrics.numCalculated += 1
-      // } else if (persona.name == "Experimental") {
-      //   metrics.numExperimental += 1
-      // } else if (persona.name == "Resourceful") {
-      //   metrics.numResourceful += 1
-      // }
+      var metrics = updateMetrics(data, persona, subPersonas, calculated, experimental, resourceful, count);
       db.collection("metrics").doc(metricsDocRef).set(metrics)
-    } else {
+    }
+    else {
       db.collection("metrics").doc(metricsDocRef).set({
           numCalculated: 0,
           numExperimental: 0,
@@ -113,7 +106,10 @@ var resourceful = 0.66*(parseInt(data.ts5) + parseInt(data.ts6) + parseInt(data.
           numResourceful_V: 0,
           numCalculated_I: 0,
           numExperimental_I: 0,
-          numResourceful_I: 0
+          numResourceful_I: 0,
+          avgCalculated: 0,
+          avgExperimental: 0,
+          avgResourceful: 0
       })
     }
     res.render('index', {data: data, persona: persona.name, desc: persona.desc, metrics: metrics});
@@ -178,7 +174,7 @@ function getSubPersonas(debugTotals, implTotals, verifTotals) {
   return subPersonas;
 }
 
-function updateMetrics(metrics, persona, subPersonas) {
+function updateMetrics(metrics, persona, subPersonas, calculated, experimental, resourceful, count) {
   if (persona.name == "Calculated") {
     metrics.numCalculated += 1
   } else if (persona.name == "Experimental") {
@@ -207,5 +203,6 @@ function updateMetrics(metrics, persona, subPersonas) {
   } else if (subPersonas.V_persona.name == "Resourceful") {
     metrics.numResourceful_V += 1
   }
+
   return metrics;
 }
