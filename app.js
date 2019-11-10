@@ -155,9 +155,6 @@ function getPersona(calculated, experimental, resourceful) {
 }
 
 function getSubPersonas(debugTotals, implTotals, verifTotals) {
-  console.log("debugTotals: ", debugTotals)
-  console.log("implTotals: ", implTotals)
-  console.log("verifTotals: ", verifTotals)
   var dCalc = debugTotals[4] + debugTotals[8]
   var dExpr = 0.66*(debugTotals[1] + debugTotals[2] + debugTotals[3])
   var dRes = 0.66*(debugTotals[5] + debugTotals[6] + debugTotals[7])
@@ -173,9 +170,6 @@ function getSubPersonas(debugTotals, implTotals, verifTotals) {
   var dPersona = getPersona(dCalc, dExpr, dRes)
   var iPersona = getPersona(iCalc, iExpr, iRes)
   var vPersona = getPersona(vCalc, vExpr, vRes)
-  console.log("debug persona: ", dPersona.name)
-  console.log("dCalc - ", dCalc)
-  console.log("JSON SRINIFY: ", JSON.stringify(dPersona))
   var subPersonas = {
     D_persona: dPersona,
     I_persona: iPersona,

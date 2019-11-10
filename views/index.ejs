@@ -60,26 +60,55 @@
 
 
         <br>
-        <h3>Breakdown
-        <h3>DM:</h3>
-        <%- JSON.stringify(data.dm) %>
-        <h3>IM:</h3>
-        <%- JSON.stringify(data.im) %>
-        <h3>VM:</h3>
-        <%- JSON.stringify(data.vm) %>
-        <h3>IF:</h3>
-        <%- JSON.stringify(data.if) %>
-        <h3>VF:</h3>
-        <%- JSON.stringify(data.vf) %>
-        <h3>DF:</h3>
-        <%- JSON.stringify(data.df) %>
-        <h3>VC:</h3>
-        <%- JSON.stringify(data.vc) %>
-        <h3>DC:</h3>
-        <%- JSON.stringify(data.dc) %>
-        <h3>IC:</h3>
-        <%- JSON.stringify(data.ic) %>
-        <br><br>
+        <h3>Breakdown</h3>
+          <div id="piechartD" style="float: left"></div>
+          <div id="piechartI" style="float: left"></div>
+          <div id="piechartV" style="float: left"></div>
+
+          <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+          <script type="text/javascript">
+          // Load google charts
+          google.charts.load('current', {'packages':['corechart']});
+          google.charts.setOnLoadCallback(drawCharts);
+
+          // Draw the chart and set the chart values
+          function drawCharts() {
+            var dataD = google.visualization.arrayToDataTable([
+            ['Persona', 'Respondants'],
+            ['Calculated', <%= metrics.numCalculated_D %>],
+            ['Experimental', <%= metrics.numExperimental_D %>],
+            ['Resourceful', <%= metrics.numResourceful_D %>]
+          ]);
+          var dataV = google.visualization.arrayToDataTable([
+          ['Persona', 'Respondants'],
+          ['Calculated', <%= metrics.numCalculated_V %>],
+          ['Experimental', <%= metrics.numExperimental_V %>],
+          ['Resourceful', <%= metrics.numResourceful_V %>]
+        ]);
+        var dataI = google.visualization.arrayToDataTable([
+        ['Persona', 'Respondants'],
+        ['Calculated', <%= metrics.numCalculated_I %>],
+        ['Experimental', <%= metrics.numExperimental_I %>],
+        ['Resourceful', <%= metrics.numResourceful_I %>]
+      ]);
+
+            // Optional; add a title and set the width and height of the chart
+            var optionsD = {'title':'Overall Responses - Debug', 'width':275, 'height':200};
+            var optionsI = {'title':'Overall Responses - Implementation', 'width':275, 'height':200};
+            var optionsV = {'title':'Overall Responses - Verification', 'width':275, 'height':200};
+
+            // Display the chart inside the <div> element with id="piechart"
+            var chartD = new google.visualization.PieChart(document.getElementById('piechartD'));
+            chartD.draw(dataD, optionsD);
+            // Display the chart inside the <div> element with id="piechart"
+            var chartI = new google.visualization.PieChart(document.getElementById('piechartI'));
+            chartI.draw(dataI, optionsI);
+            // Display the chart inside the <div> element with id="piechart"
+            var chartV = new google.visualization.PieChart(document.getElementById('piechartV'));
+            chartV.draw(dataV, optionsV);
+          }
+          </script>
     </div>
 </main>
 
