@@ -20,6 +20,23 @@ firebase.initializeApp({
 
 var db = firebase.firestore();
 var ref = firebase.database().ref;
+var metricsDocRef = 0;
+db.collection("metrics").add({
+    numCalculated: 0,
+    numExperimental: 0,
+    numResourceful: 0,
+    numCalculated_D: 0,
+    numExperimental_D: 0,
+    numResourceful_D: 0,
+    numCalculated_V: 0,
+    numExperimental_V: 0,
+    numResourceful_V: 0,
+    numCalculated_I: 0,
+    numExperimental_I: 0,
+    numResourceful_I: 0
+}).then(function(docRef) {
+  metricsDocRef = docRef.id;
+})
 
 function call_results(req, res) {
   var options = {
@@ -65,7 +82,6 @@ var resourceful = 0.66*(parseInt(data.ts5) + parseInt(data.ts6) + parseInt(data.
   }
 
   var persona = getPersona(calculated, experimental, resourceful);
-
   db.collection("responses").add({
     data: data,
     persona: persona.name,
@@ -73,15 +89,26 @@ var resourceful = 0.66*(parseInt(data.ts5) + parseInt(data.ts6) + parseInt(data.
   })
 .then(function(docRef) {
   var str = "";
-  var respRef = db.collection("responses").limit(50);
+  // new ShareBar({'facebookAppId': '549011802567468'});
+  var respRef = db.collection("metrics");
   respRef.get().then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
-        str = str.concat(`${doc.id} => ${JSON.stringify(doc.data().data)} \n`);
+      var metrics = doc.data();
+      if (persona.name == "Calculated") {
+        metrics.numCalculated += 1
+      } else if (persona.name == "Experimental") {
+        metrics.numExperimental += 1
+      } else if (persona.name == "Resourceful") {
+        metrics.numResourceful += 1
+      }
+      db.collection("metrics").doc(metricsDocRef).update(metrics)
+      // firebase.database().ref(metricsDocRef).set(metrics);
+      str = str.concat(`${doc.id} => ${JSON.stringify(doc.data().data)} \n`);
+      res.render('index', {data: data, str: str, persona: persona.name, desc: persona.desc, metrics: metrics});
     });
     console.log("Get success: ", str);
-    res.render('index', {data: data, str: str, persona: persona.name, desc: persona.desc});
+    // res.render('index', {data: data, str: str, persona: persona.name, desc: persona.desc, metrics: });
 });
-    // res.render('index', {data: data, str: str});
     console.log("Document written with ID: ", docRef.id);
 })
 .catch(function(error) {
