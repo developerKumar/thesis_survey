@@ -78,25 +78,27 @@ var resourceful = 0.66*(parseInt(data.ts5) + parseInt(data.ts6) + parseInt(data.
 
   var persona = getPersona(calculated, experimental, resourceful);
   var subPersonas = getSubPersonas(debugScoreTotals, implScoreTotals, verifScoreTotals);
-  console.log(">>>>SUB PERSONAS: ", subPersonas)
+  // console.log(">>>>SUB PERSONAS!!!!: ", JSON.stringify(subPersonas))
   db.collection("responses").add({
     data: data,
     persona: persona.name,
     desc: persona.desc
-  })
+    })
 .then(function(docRef) {
   // new ShareBar({'facebookAppId': '549011802567468'});
   var respRef = db.collection("metrics").doc(metricsDocRef);
   respRef.get().then((docSnapshot) => {
     if (docSnapshot.exists) {
-      var metrics = docSnapshot.data();
-      if (persona.name == "Calculated") {
-        metrics.numCalculated += 1
-      } else if (persona.name == "Experimental") {
-        metrics.numExperimental += 1
-      } else if (persona.name == "Resourceful") {
-        metrics.numResourceful += 1
-      }
+      var data = docSnapshot.data()
+      console.log(">>>>SUB PERSONAS!!!!: ", JSON.stringify(subPersonas))
+      var metrics = updateMetrics(data, persona, subPersonas);
+      // if (persona.name == "Calculated") {
+      //   metrics.numCalculated += 1
+      // } else if (persona.name == "Experimental") {
+      //   metrics.numExperimental += 1
+      // } else if (persona.name == "Resourceful") {
+      //   metrics.numResourceful += 1
+      // }
       db.collection("metrics").doc(metricsDocRef).set(metrics)
     } else {
       db.collection("metrics").doc(metricsDocRef).set({
@@ -176,12 +178,40 @@ function getSubPersonas(debugTotals, implTotals, verifTotals) {
   console.log("JSON SRINIFY: ", JSON.stringify(dPersona))
   var subPersonas = {
     D_persona: dPersona,
-    I_Persona: iPersona,
-    V_Persona: vPersona
+    I_persona: iPersona,
+    V_persona: vPersona
   }
+  return subPersonas;
 }
 
-function updateMetrics(metrics) {
-
+function updateMetrics(metrics, persona, subPersonas) {
+  if (persona.name == "Calculated") {
+    metrics.numCalculated += 1
+  } else if (persona.name == "Experimental") {
+    metrics.numExperimental += 1
+  } else if (persona.name == "Resourceful") {
+    metrics.numResourceful += 1
+  }
+  if (subPersonas.D_persona.name == "Calculated") {
+    metrics.numCalculated_D += 1
+  } else if (subPersonas.D_persona.name == "Experimental") {
+    metrics.numExperimental_D += 1
+  } else if (subPersonas.D_persona.name == "Resourceful") {
+    metrics.numResourceful_D += 1
+  }
+  if (subPersonas.I_persona.name == "Calculated") {
+    metrics.numCalculated_I += 1
+  } else if (subPersonas.I_persona.name == "Experimental") {
+    metrics.numExperimental_I += 1
+  } else if (subPersonas.I_persona.name == "Resourceful") {
+    metrics.numResourceful_I += 1
+  }
+  if (subPersonas.V_persona.name == "Calculated") {
+    metrics.numCalculated_V += 1
+  } else if (subPersonas.V_persona.name == "Experimental") {
+    metrics.numExperimental_V += 1
+  } else if (subPersonas.V_persona.name == "Resourceful") {
+    metrics.numResourceful_V += 1
+  }
   return metrics;
 }
