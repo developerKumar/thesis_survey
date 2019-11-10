@@ -74,7 +74,11 @@ var resourceful = 0.66*(parseInt(data.ts5) + parseInt(data.ts6) + parseInt(data.
     console.log("debugScoreTotals(", i, "): ", debugScoreTotals[i])
   }
 
+
+
   var persona = getPersona(calculated, experimental, resourceful);
+  var subPersonas = getSubPersonas(debugScoreTotals, implScoreTotals, verifScoreTotals);
+  console.log(">>>>SUB PERSONAS: ", subPersonas)
   db.collection("responses").add({
     data: data,
     persona: persona.name,
@@ -112,19 +116,7 @@ var resourceful = 0.66*(parseInt(data.ts5) + parseInt(data.ts6) + parseInt(data.
     }
     res.render('index', {data: data, persona: persona.name, desc: persona.desc, metrics: metrics});
   })
-    // querySnapshot.forEach((doc) => {
-    //   var metrics = doc.data();
-    //   if (persona.name == "Calculated") {
-    //     metrics.numCalculated += 1
-    //   } else if (persona.name == "Experimental") {
-    //     metrics.numExperimental += 1
-    //   } else if (persona.name == "Resourceful") {
-    //     metrics.numResourceful += 1
-    //   }
-    //   db.collection("metrics").doc(metricsDocRef).update(metrics)
-      // firebase.database().ref(metricsDocRef).set(metrics);
     console.log("Document written with ID: ", docRef.id);
-    // res.render('index', {data: data, str: str, persona: persona.name, desc: persona.desc, metrics: });
 })
 .catch(function(error) {
     console.error("Error adding document: ", error);
@@ -158,4 +150,38 @@ function getPersona(calculated, experimental, resourceful) {
   }
 
   return persona;
+}
+
+function getSubPersonas(debugTotals, implTotals, verifTotals) {
+  console.log("debugTotals: ", debugTotals)
+  console.log("implTotals: ", implTotals)
+  console.log("verifTotals: ", verifTotals)
+  var dCalc = debugTotals[4] + debugTotals[8]
+  var dExpr = 0.66*(debugTotals[1] + debugTotals[2] + debugTotals[3])
+  var dRes = 0.66*(debugTotals[5] + debugTotals[6] + debugTotals[7])
+
+  var iCalc = implTotals[4] + implTotals[8]
+  var iExpr = 0.66*(implTotals[1] + implTotals[2] + implTotals[3])
+  var iRes = 0.66*(implTotals[5] + implTotals[6] + implTotals[7])
+
+  var vCalc = verifTotals[4] + verifTotals[8]
+  var vExpr = 0.66*(verifTotals[1] + verifTotals[2] + verifTotals[3])
+  var vRes = 0.66*(verifTotals[5] + verifTotals[6] + verifTotals[7])
+
+  var dPersona = getPersona(dCalc, dExpr, dRes)
+  var iPersona = getPersona(iCalc, iExpr, iRes)
+  var vPersona = getPersona(vCalc, vExpr, vRes)
+  console.log("debug persona: ", dPersona.name)
+  console.log("dCalc - ", dCalc)
+  console.log("JSON SRINIFY: ", JSON.stringify(dPersona))
+  var subPersonas = {
+    D_persona: dPersona,
+    I_Persona: iPersona,
+    V_Persona: vPersona
+  }
+}
+
+function updateMetrics(metrics) {
+
+  return metrics;
 }
