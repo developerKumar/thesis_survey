@@ -12,6 +12,10 @@
 body {
     font-family: 'Aldrich';font-size: 22px;
 }
+
+/* .resp-sharing-button {
+  font-family: 'Aldrich';
+} */
 </style>
 
   <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -36,8 +40,6 @@ body {
         <br>
         <p><%- desc %></p>
 
-        <br>
-        <br>
         <!-- Sharingbutton Facebook -->
 <a class="resp-sharing-button__link" href="https://facebook.com/sharer/sharer.php?u=http%3A%2F%2Fsharingbuttons.io" target="_blank" rel="noopener" aria-label="Share on Facebook">
   <div class="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--large"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--circle">
@@ -58,6 +60,7 @@ body {
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11.5"/><path d="M15 12.5c-.28 0-.5.22-.5.5v3.5h-3s.03-6.48 0-7h3v.83s.46-.75 1.7-.75c1.56 0 2.3 1.12 2.3 3.3v3.62h-3V13c0-.28-.23-.5-.5-.5zm-7.5-3h2v7h-2z"/><circle cx="8.5" cy="6.5" r="1"/></svg>
     </div>Share on LinkedIn</div>
 </a>
+<br>
 
         <div id="piechart"></div>
 
@@ -77,8 +80,27 @@ body {
           ['Resourceful', <%= metrics.numResourceful %>]
         ]);
 
-          // Optional; add a title and set the width and height of the chart
-          var options = {'title':'Overall Responses', 'width':550, 'height':400};
+        let width = 550;
+        let height = 400;
+
+        let options = {
+         'title':'Overall Responses',
+         'width':width,
+         'height':height,
+         'fontSize': 20,
+         'backgroundColor': '#EEEEEE',
+         'legend': {
+           textStyle: {
+            fontSize: 12
+           }
+         },
+         'tooltip': {
+           textStyle: {
+             fontSize: 12
+           }
+         },
+         fontName: "Aldrich"
+       };
 
           // Display the chart inside the <div> element with id="piechart"
           var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -102,6 +124,7 @@ body {
           <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
           <script type="text/javascript">
+
           // Load google charts
           google.charts.load('current', {'packages':['corechart']});
           google.charts.setOnLoadCallback(drawCharts);
@@ -114,36 +137,92 @@ body {
             ['Experimental', <%= metrics.numExperimental_D %>],
             ['Resourceful', <%= metrics.numResourceful_D %>]
           ]);
-          var dataV = google.visualization.arrayToDataTable([
-          ['Persona', 'Respondants'],
-          ['Calculated', <%= metrics.numCalculated_V %>],
-          ['Experimental', <%= metrics.numExperimental_V %>],
-          ['Resourceful', <%= metrics.numResourceful_V %>]
-        ]);
-        var dataI = google.visualization.arrayToDataTable([
-        ['Persona', 'Respondants'],
-        ['Calculated', <%= metrics.numCalculated_I %>],
-        ['Experimental', <%= metrics.numExperimental_I %>],
-        ['Resourceful', <%= metrics.numResourceful_I %>]
-      ]);
+            var dataV = google.visualization.arrayToDataTable([
+            ['Persona', 'Respondants'],
+            ['Calculated', <%= metrics.numCalculated_V %>],
+            ['Experimental', <%= metrics.numExperimental_V %>],
+            ['Resourceful', <%= metrics.numResourceful_V %>]
+          ]);
+            var dataI = google.visualization.arrayToDataTable([
+            ['Persona', 'Respondants'],
+            ['Calculated', <%= metrics.numCalculated_I %>],
+            ['Experimental', <%= metrics.numExperimental_I %>],
+            ['Resourceful', <%= metrics.numResourceful_I %>]
+          ]);
 
-            // Optional; add a title and set the width and height of the chart
-            let width = 550;
-            let height = 400;
-            var optionsD = {'title':'Overall Responses - Debug', 'width':width, 'height':height};
-            var optionsI = {'title':'Overall Responses - Implementation', 'width':width, 'height':height};
-            var optionsV = {'title':'Overall Responses - Verification', 'width':width, 'height':height};
+          let width = 550;
+          let height = 400;
+          let optionsD = {
+           'title':'Overall Responses: Debug',
+           'width':width,
+           'height':height,
+           'fontSize': 20,
+           'backgroundColor': '#EEEEEE',
+           'legend': {
+             textStyle: {
+              fontSize: 12
+             }
+           },
+           'tooltip': {
+             textStyle: {
+               fontSize: 12
+             }
+           },
+           fontName: "Aldrich"
+         };
+         let optionsI = {
+          'title':'Overall Responses: Implementation',
+          'width':width,
+          'height':height,
+          'fontSize': 20,
+          'backgroundColor': '#EEEEEE',
+          'legend': {
+            textStyle: {
+             fontSize: 12
+            }
+          },
+          'tooltip': {
+            textStyle: {
+              fontSize: 12
+            }
+          },
+          fontName: "Aldrich"
+        };
+        let optionsV = {
+         'title':'Overall Responses: Testing',
+         'width':width,
+         'height':height,
+         'fontSize': 20,
+         'backgroundColor': '#EEEEEE',
+         'legend': {
+           textStyle: {
+            fontSize: 12
+           }
+         },
+         'tooltip': {
+           textStyle: {
+             fontSize: 12
+           }
+         },
+         fontName: "Aldrich"
+       };
+        // var optionsD = baseOptions;
+        // optionsD.title = "Overall Responses: Debug"
+        // var optionsI = baseOptions;
+        // optionsI.title = "Overall Responses: Implementation"
+        // var optionsV = baseOptions;
+        // optionsV.title = "Overall Responses: Testing"
 
-            // Display the chart inside the <div> element with id="piechart"
-            var chartD = new google.visualization.PieChart(document.getElementById('piechartD'));
-            chartD.draw(dataD, optionsD);
-            // Display the chart inside the <div> element with id="piechart"
-            var chartI = new google.visualization.PieChart(document.getElementById('piechartI'));
-            chartI.draw(dataI, optionsI);
-            // Display the chart inside the <div> element with id="piechart"
-            var chartV = new google.visualization.PieChart(document.getElementById('piechartV'));
-            chartV.draw(dataV, optionsV);
-          }
+        // Display the chart inside the <div> element with id="piechart"
+        var chartD = new google.visualization.PieChart(document.getElementById('piechartD'));
+        chartD.draw(dataD, optionsD);
+        // Display the chart inside the <div> element with id="piechart"
+        var chartI = new google.visualization.PieChart(document.getElementById('piechartI'));
+        chartI.draw(dataI, optionsI);
+        // Display the chart inside the <div> element with id="piechart"
+        var chartV = new google.visualization.PieChart(document.getElementById('piechartV'));
+        chartV.draw(dataV, optionsV);
+      }
 
           // google.visualization.events.addListener(chartD, 'ready', function () {
           //   document.getElementById('piechartDCard').innerHTML = '<img src="' + chartD.getImageURI() + '">';

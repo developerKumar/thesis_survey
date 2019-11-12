@@ -130,17 +130,3 @@ background-color: #FF6600
 .h3 {
   font-weight: bold;
 }
-
-chartArea: {
-    backgroundColor: {
-        stroke: '#4322c0',
-        strokeWidth: 3
-    }
-}
-
-/* .piechart {
-    backgroundColor: {
-        stroke: '#4322c0',
-        strokeWidth: 3
-    };
-} */
