@@ -112,7 +112,7 @@ var resourceful = 0.66*(parseInt(data.ts5) + parseInt(data.ts6) + parseInt(data.
           avgResourceful: 0
       })
     }
-    res.render('index', {data: data, persona: persona.name, desc: persona.desc, metrics: metrics});
+    res.render('index', {data: data, persona: persona.name, desc: persona.desc, subPersonas: subPersonas, metrics: metrics});
   })
     console.log("Document written with ID: ", docRef.id);
 })

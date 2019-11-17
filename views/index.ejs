@@ -35,7 +35,7 @@ body {
 <main>
   <div class="jumbotron jumbotron-fluid">
     <div class="container">
-        <h1>Congratulations! Your Programmer Persona is... </h1>
+        <h2>Congratulations! Your Programmer Persona is... </h2>
         <h3><%- persona %></h3>
         <br>
         <p><%- desc %></p>
@@ -117,12 +117,46 @@ body {
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
           </div>
         </div> -->
-          <div id="piechartD" style="display: left"></div>
-          <div id="piechartI" style="float: left"></div>
-          <div id="piechartV" style="float: left"></div>
+        <div class="row" style="align:center">
 
+        <div id="piechartD" class="col-sm-6"></div>
+          <div class="col-sm-6">
+            <div class="card" style="width: 18rem; display: right">
+              <div class="card-body">
+                <h5 class="card-title"><h3><%- subPersonas.D_persona.name %></h3></h5>
+                <h6 class="card-subtitle mb-2 text-muted">Your persona for Debugging-style tasks</h6>
+                <p class="card-text"><%- subPersonas.D_persona.desc %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+<br>
+      <div class="row" style="align:center">
+        <div id="piechartI" class="col-sm-6"></div>
+          <div class="col-sm-6">
+            <div class="card" style="width: 18rem; display: right">
+              <div class="card-body">
+                <h5 class="card-title"><h3><%- subPersonas.I_persona.name %></h3></h5>
+                <h6 class="card-subtitle mb-2 text-muted">Your persona for Implementation-style tasks</h6>
+                <p class="card-text"><%- subPersonas.I_persona.desc %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+<br>
+      <div class="row" style="align:center">
+        <div id="piechartV" class="col-sm-6"></div>
+          <div class="col-sm-6">
+            <div class="card" style="width: 18rem; display: right">
+              <div class="card-body">
+                <h5 class="card-title"><h3><%- subPersonas.V_persona.name %></h3></h5>
+                <h6 class="card-subtitle mb-2 text-muted">Your persona for Verification-style tasks</h6>
+                <p class="card-text"><%- subPersonas.V_persona.desc %></p>
+              </div>
+          </div>
+        </div>
+      </div>
           <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
           <script type="text/javascript">
 
           // Load google charts
@@ -206,12 +240,6 @@ body {
          },
          fontName: "Aldrich"
        };
-        // var optionsD = baseOptions;
-        // optionsD.title = "Overall Responses: Debug"
-        // var optionsI = baseOptions;
-        // optionsI.title = "Overall Responses: Implementation"
-        // var optionsV = baseOptions;
-        // optionsV.title = "Overall Responses: Testing"
 
         // Display the chart inside the <div> element with id="piechart"
         var chartD = new google.visualization.PieChart(document.getElementById('piechartD'));
@@ -223,10 +251,6 @@ body {
         var chartV = new google.visualization.PieChart(document.getElementById('piechartV'));
         chartV.draw(dataV, optionsV);
       }
-
-          // google.visualization.events.addListener(chartD, 'ready', function () {
-          //   document.getElementById('piechartDCard').innerHTML = '<img src="' + chartD.getImageURI() + '">';
-          // });
           </script>
     </div>
   </div>
