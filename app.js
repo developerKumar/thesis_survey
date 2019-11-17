@@ -45,8 +45,10 @@ function call_results(req, res) {
     ts5: JSON.parse(req.query.total5),
     ts6: JSON.parse(req.query.total6),
     ts7: JSON.parse(req.query.total7),
-    ts8: JSON.parse(req.query.total8)
+    ts8: JSON.parse(req.query.total8),
+    affect: req.query.affect
   }
+  console.log(data.affect)
 
 var calculated = parseInt(data.ts4) + parseInt(data.ts8);
 var experimental = 0.66*(parseInt(data.ts1) + parseInt(data.ts2) + parseInt(data.ts3));
@@ -88,9 +90,9 @@ var resourceful = 0.66*(parseInt(data.ts5) + parseInt(data.ts6) + parseInt(data.
   var respRef = db.collection("metrics").doc(metricsDocRef);
   respRef.get().then((docSnapshot) => {
     if (docSnapshot.exists) {
-      var data = docSnapshot.data()
+      var docData = docSnapshot.data()
       console.log(">>>>SUB PERSONAS!!!!: ", JSON.stringify(subPersonas))
-      var metrics = updateMetrics(data, persona, subPersonas, calculated, experimental, resourceful, count);
+      var metrics = updateMetrics(docData, persona, subPersonas, calculated, experimental, resourceful, count);
       db.collection("metrics").doc(metricsDocRef).set(metrics)
     }
     else {
