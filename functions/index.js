@@ -111,7 +111,13 @@ var resourceful = 0.66*(parseInt(data.ts5) + parseInt(data.ts6) + parseInt(data.
           avgResourceful: 0
       })
     }
-    res.render('index', {data: data, persona: persona.name, desc: persona.desc, subPersonas: subPersonas, metrics: metrics});
+    let shareTitle = encodeURIComponent("Your programming style is " + persona.name + "! ")
+    let shareDesc = encodeURIComponent(persona.desc)
+    let twitter = '<a class="resp-sharing-button__link" href="https://twitter.com/intent/tweet/?text=' + shareTitle + shareDesc + '%20Discover%20your%20programming%20persona%20here%21%20&amp;url=https%3A%2F%2Fgmu.az1.qualtrics.com%2Fjfe%2Fform%2FSV_cvDj3Vd3ZZvqAVT" target="_blank" rel="noopener" aria-label="Twitter">'
+    let linkedin = '<a class="resp-sharing-button__link" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fgmu.az1.qualtrics.com%2Fjfe%2Fform%2FSV_cvDj3Vd3ZZvqAVT&amp;title=' + shareTitle + "&amp;summary=" + shareDesc + '%20Discover%20your%20programming%20persona%20here%21%20&amp;source=https%3A%2F%2Fgmu.az1.qualtrics.com%2Fjfe%2Fform%2FSV_cvDj3Vd3ZZvqAVT" target="_blank" rel="noopener" aria-label="LinkedIn">'
+    console.log(twitter)
+    console.log(linkedin)
+    res.render('index', {data: data, persona: persona.name, desc: persona.desc, subPersonas: subPersonas, twitter: twitter, linkedin: linkedin, metrics: metrics});
   })
     console.log("Document written with ID: ", docRef.id);
 })
