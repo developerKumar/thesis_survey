@@ -48,7 +48,6 @@ function call_results(req, res) {
     ts8: JSON.parse(req.query.total8),
     affect: req.query.affect
   }
-  console.log(data.affect)
 
 var calculated = parseInt(data.ts4) + parseInt(data.ts8);
 var experimental = 0.66*(parseInt(data.ts1) + parseInt(data.ts2) + parseInt(data.ts3));
@@ -67,17 +66,6 @@ var resourceful = 0.66*(parseInt(data.ts5) + parseInt(data.ts6) + parseInt(data.
     console.log("debugScoreTotals(", i, "): ", debugScoreTotals[i])
   }
 
-//   var shareBar = new ShareBar(
-//     {'facebookAppId': '549011802567468',
-//     onShare: function (button) {
-//     alert(button.innerHTML);
-//   }
-// });
-
-// document.getElementById("share-bar").innerHTML = shareBar;
-
-
-
   var persona = getPersona(calculated, experimental, resourceful);
   var subPersonas = getSubPersonas(debugScoreTotals, implScoreTotals, verifScoreTotals);
   // console.log(">>>>SUB PERSONAS!!!!: ", JSON.stringify(subPersonas))
@@ -91,7 +79,6 @@ var resourceful = 0.66*(parseInt(data.ts5) + parseInt(data.ts6) + parseInt(data.
   respRef.get().then((docSnapshot) => {
     if (docSnapshot.exists) {
       var docData = docSnapshot.data()
-      console.log(">>>>SUB PERSONAS!!!!: ", JSON.stringify(subPersonas))
       var metrics = updateMetrics(docData, persona, subPersonas, calculated, experimental, resourceful, count);
       db.collection("metrics").doc(metricsDocRef).set(metrics)
     }
@@ -114,7 +101,13 @@ var resourceful = 0.66*(parseInt(data.ts5) + parseInt(data.ts6) + parseInt(data.
           avgResourceful: 0
       })
     }
-    res.render('index', {data: data, persona: persona.name, desc: persona.desc, subPersonas: subPersonas, metrics: metrics});
+    let shareTitle = encodeURIComponent("Your programming style is " + persona.name + "! ")
+    let shareDesc = encodeURIComponent(persona.desc)
+    let twitter = '<a class="resp-sharing-button__link" href="https://twitter.com/intent/tweet/?text=' + shareTitle + shareDesc + '%20Discover%20your%20programming%20persona%20here%21%20&amp;url=https%3A%2F%2Fgmu.az1.qualtrics.com%2Fjfe%2Fform%2FSV_cvDj3Vd3ZZvqAVT" target="_blank" rel="noopener" aria-label="Twitter">'
+    let linkedin = '<a class="resp-sharing-button__link" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fgmu.az1.qualtrics.com%2Fjfe%2Fform%2FSV_cvDj3Vd3ZZvqAVT&amp;title=' + shareTitle + "&amp;summary=" + shareDesc + '%20Discover%20your%20programming%20persona%20here%21%20&amp;source=https%3A%2F%2Fgmu.az1.qualtrics.com%2Fjfe%2Fform%2FSV_cvDj3Vd3ZZvqAVT" target="_blank" rel="noopener" aria-label="LinkedIn">'
+    console.log(twitter)
+    console.log(linkedin)
+    res.render('index', {data: data, persona: persona.name, desc: persona.desc, subPersonas: subPersonas, twitter: twitter, linkedin: linkedin, metrics: metrics});
   })
     console.log("Document written with ID: ", docRef.id);
 })
