@@ -125,8 +125,8 @@ var resourceful = 0.66*(parseInt(data.ts5) + parseInt(data.ts6) + parseInt(data.
 }
 app.get('/results', call_results);
 
-app.listen(3000, function () {
-  console.log('server running on port 3000');
+app.listen(3993, function () {
+  console.log('server running on port 3993');
 })
 
 function getPersona(calculated, experimental, resourceful) {
