@@ -21,6 +21,18 @@ const firebase = require("firebase");
 // Required for side-effects
 require("firebase/firestore");
 
+exports.bigben = functions.https.onRequest((req, res) => {
+  const hours = (new Date().getHours() % 12) + 1  // London is UTC + 1hr;
+  res.status(200).send(`<!doctype html>
+    <head>
+      <title>Time</title>
+    </head>
+    <body>
+      ${'BONG '.repeat(hours)}
+    </body>
+  </html>`);
+});
+
 // Initialize Cloud Firestore through Firebase
 firebase.initializeApp({
   apiKey: 'AIzaSyA7QXDAjJhGlmh2SGOprMAVlOtVBy_2RQo',
@@ -35,6 +47,7 @@ var metricsDocRef = "metricsDoc";
 var count = 0;
 
 function call_results(req, res) {
+  console.log(">>>INSIDE CALL RESULTS")
   var data = {
     dm: JSON.parse(req.query.dm),
     im: JSON.parse(req.query.im),
@@ -71,7 +84,6 @@ var resourceful = 0.66*(parseInt(data.ts5) + parseInt(data.ts6) + parseInt(data.
     debugScoreTotals[i] = data.dm[iStr] + data.dc[iStr] + data.df[iStr];
     implScoreTotals[i] = data.im[iStr] + data.ic[iStr] + data.if[iStr];
     verifScoreTotals[i] = data.vm[iStr] + data.vc[iStr] + data.vf[iStr];
-    console.log("debugScoreTotals(", i, "): ", debugScoreTotals[i])
   }
 
 
@@ -88,7 +100,6 @@ var resourceful = 0.66*(parseInt(data.ts5) + parseInt(data.ts6) + parseInt(data.
   respRef.get().then((docSnapshot) => {
     if (docSnapshot.exists) {
       var docData = docSnapshot.data()
-      console.log(">>>>SUB PERSONAS!!!!: ", JSON.stringify(subPersonas))
       var metrics = updateMetrics(docData, persona, subPersonas, calculated, experimental, resourceful, count);
       db.collection("metrics").doc(metricsDocRef).set(metrics)
     }
@@ -115,8 +126,6 @@ var resourceful = 0.66*(parseInt(data.ts5) + parseInt(data.ts6) + parseInt(data.
     let shareDesc = encodeURIComponent(persona.desc)
     let twitter = '<a class="resp-sharing-button__link" href="https://twitter.com/intent/tweet/?text=' + shareTitle + shareDesc + '%20Discover%20your%20programming%20persona%20here%21%20&amp;url=https%3A%2F%2Fgmu.az1.qualtrics.com%2Fjfe%2Fform%2FSV_cvDj3Vd3ZZvqAVT" target="_blank" rel="noopener" aria-label="Twitter">'
     let linkedin = '<a class="resp-sharing-button__link" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fgmu.az1.qualtrics.com%2Fjfe%2Fform%2FSV_cvDj3Vd3ZZvqAVT&amp;title=' + shareTitle + "&amp;summary=" + shareDesc + '%20Discover%20your%20programming%20persona%20here%21%20&amp;source=https%3A%2F%2Fgmu.az1.qualtrics.com%2Fjfe%2Fform%2FSV_cvDj3Vd3ZZvqAVT" target="_blank" rel="noopener" aria-label="LinkedIn">'
-    console.log(twitter)
-    console.log(linkedin)
     res.render('index', {data: data, persona: persona.name, desc: persona.desc, subPersonas: subPersonas, twitter: twitter, linkedin: linkedin, metrics: metrics});
   })
     console.log("Document written with ID: ", docRef.id);

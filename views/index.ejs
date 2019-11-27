@@ -42,8 +42,8 @@ body {
         <br>
         <p><%- desc %></p>
         <!-- <p><%- JSON.stringify(data.affect) %></p> -->
-
-
+  <br>
+  <h3>Share your results:</h3>
   <!-- Sharingbutton Facebook -->
   <a class="resp-sharing-button__link" href="https://facebook.com/sharer/sharer.php?u=https%3A%2F%2Fgmu.az1.qualtrics.com%2Fjfe%2Fform%2FSV_cvDj3Vd3ZZvqAVT" target="_blank" rel="noopener" aria-label="Facebook">
     <div class="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--medium"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
@@ -63,6 +63,12 @@ body {
     <div class="resp-sharing-button resp-sharing-button--linkedin resp-sharing-button--medium"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 21.5h-5v-13h5v13zM4 6.5C2.5 6.5 1.5 5.3 1.5 4s1-2.4 2.5-2.4c1.6 0 2.5 1 2.6 2.5 0 1.4-1 2.5-2.6 2.5zm11.5 6c-1 0-2 1-2 2v7h-5v-13h5V10s1.6-1.5 4-1.5c3 0 5 2.2 5 6.3v6.7h-5v-7c0-1-1-2-2-2z"/></svg></div>LinkedIn</div>
   </a>
+
+  <!-- The text field -->
+  <input type="text" value="https://gmu.az1.qualtrics.com/jfe/form/SV_cvDj3Vd3ZZvqAVT" id="myInput">
+
+<!-- The button used to copy the text -->
+  <button id="copyButton" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top" onclick="copyText()">Copy URL</button>
 
 <br>
 
@@ -161,6 +167,23 @@ body {
           // Display the chart inside the <div> element with id="piechart"
           var chart = new google.visualization.PieChart(document.getElementById('piechart'));
           chart.draw(data, options);
+        }
+
+        function copyText() {
+          /* Get the text field */
+          var copyText = document.getElementById("myInput");
+
+          /* Select the text field */
+          copyText.select();
+          copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+          /* Copy the text inside the text field */
+          document.execCommand("copy");
+
+          /* Alert the copied text */
+          var anchor = document.getElementById('copyButton');
+          anchor.title = 'Copied!';
+          // alert("Copied the text: " + copyText.value);
         }
         </script>
 
