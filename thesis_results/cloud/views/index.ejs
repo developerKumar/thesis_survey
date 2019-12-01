@@ -1,0 +1,308 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include partials/head %>
+</head>
+<link href= "/public/assets/styles/styles.css" rel="stylesheet" type="text/css" />
+<body class="container">
+<link href='https://fonts.googleapis.com/css?family=Aldrich' rel='stylesheet'>
+<style>
+body {
+    font-family: 'Aldrich';font-size: 22px;
+    color: #30e35f;
+    background-color: #c5cfc4
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+</style>
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="/__/firebase/7.2.1/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+       https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="/__/firebase/7.2.1/firebase-analytics.js"></script>
+
+  <!-- Initialize Firebase -->
+  <script src="/__/firebase/init.js"></script>
+
+<header>
+</header>
+
+<main>
+  <div class="jumbotron jumbotron-fluid shadow-sm p-3 mb-5 bg-white rounded">
+    <div class="container container-fluid">
+        <h2>Congratulations! Your Programmer Persona is... </h2>
+        <h3><%- persona %></h3>
+        <br>
+        <p><%- desc %></p>
+        <!-- <p><%- JSON.stringify(data.affect) %></p> -->
+  <br>
+  <h3>Share your results:</h3>
+  <!-- Sharingbutton Facebook -->
+  <a class="resp-sharing-button__link" href="https://facebook.com/sharer/sharer.php?u=https%3A%2F%2Fgmu.az1.qualtrics.com%2Fjfe%2Fform%2FSV_cvDj3Vd3ZZvqAVT" target="_blank" rel="noopener" aria-label="Facebook">
+    <div class="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--medium"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.77 7.46H14.5v-1.9c0-.9.6-1.1 1-1.1h3V.5h-4.33C10.24.5 9.5 3.44 9.5 5.32v2.15h-3v4h3v12h5v-12h3.85l.42-4z"/></svg></div>Facebook</div>
+  </a>
+
+  <!-- Sharingbutton Twitter -->
+  <%- twitter %>
+  <!-- <a class="resp-sharing-button__link" href="https://twitter.com/intent/tweet/?text=Discover%20your%20programming%20persona%20here%21%20&amp;url=https%3A%2F%2Fgmu.az1.qualtrics.com%2Fjfe%2Fform%2FSV_cvDj3Vd3ZZvqAVT" target="_blank" rel="noopener" aria-label="Twitter"> -->
+    <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--medium"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.44 4.83c-.8.37-1.5.38-2.22.02.93-.56.98-.96 1.32-2.02-.88.52-1.86.9-2.9 1.1-.82-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.03.7.1 1.04-3.77-.2-7.12-2-9.36-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.74-.03-1.44-.23-2.05-.57v.06c0 2.2 1.56 4.03 3.64 4.44-.67.2-1.37.2-2.06.08.58 1.8 2.26 3.12 4.25 3.16C5.78 18.1 3.37 18.74 1 18.46c2 1.3 4.4 2.04 6.97 2.04 8.35 0 12.92-6.92 12.92-12.93 0-.2 0-.4-.02-.6.9-.63 1.96-1.22 2.56-2.14z"/></svg></div>Twitter</div>
+  </a>
+
+  <!-- Sharingbutton LinkedIn -->
+  <%- linkedin %>
+  <!-- <a class="resp-sharing-button__link" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fgmu.az1.qualtrics.com%2Fjfe%2Fform%2FSV_cvDj3Vd3ZZvqAVT&amp;title=Discover%20your%20programming%20persona%20here%21%20&amp;summary=Discover%20your%20programming%20persona%20here%21%20&amp;source=https%3A%2F%2Fgmu.az1.qualtrics.com%2Fjfe%2Fform%2FSV_cvDj3Vd3ZZvqAVT" target="_blank" rel="noopener" aria-label="LinkedIn"> -->
+    <div class="resp-sharing-button resp-sharing-button--linkedin resp-sharing-button--medium"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 21.5h-5v-13h5v13zM4 6.5C2.5 6.5 1.5 5.3 1.5 4s1-2.4 2.5-2.4c1.6 0 2.5 1 2.6 2.5 0 1.4-1 2.5-2.6 2.5zm11.5 6c-1 0-2 1-2 2v7h-5v-13h5V10s1.6-1.5 4-1.5c3 0 5 2.2 5 6.3v6.7h-5v-7c0-1-1-2-2-2z"/></svg></div>LinkedIn</div>
+  </a>
+
+  <!-- The text field -->
+  <input type="text" value="https://gmu.az1.qualtrics.com/jfe/form/SV_cvDj3Vd3ZZvqAVT" id="myInput">
+
+<!-- The button used to copy the text -->
+  <button id="copyButton" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top" onclick="copyText()">Copy URL</button>
+
+<br>
+
+</div></div>
+
+<br>
+<div class="jumbotron jumbotron-fluid shadow-sm p-3 mb-5 bg-white rounded">
+<div class="container container-fluid">
+<div class="desc">
+<p>The situational questions presented in the survey all fall into one of three categories of tasks:</p>
+<ul>
+<li><u>Debugging</u>
+  <ul>
+      <li>These tasks are focused on diagnosing and fixing bugs, or errors, in the code.</li>
+  </ul>
+</li>
+<li><u>Implementation</u>
+  <ul>
+      <li>These tasks involve implementing code, examplified by situations involving setting up objects and calling methods to implement expected functionality.</li>
+  </ul>
+</li>
+<li><u>Verification</u>
+  <ul>
+      <li>These tasks are focused on testing and verifying that your code is working as expected.</li>
+  </ul>
+</li>
+</ul>
+<p>These different types of tasks often call for different strategies. See how your persona differs in these contexts below.</p>
+<br><br>
+</div>
+
+<hr class="align-self-end">
+<br><br>
+
+<h4>Your persona for <b>Debugging</b>-style tasks is </h4>
+<p><%- subPersonas.D_persona.name %></p>
+<h6>_________________________________</h6>
+<h4><%- subPersonas.D_persona.desc %></h4>
+<br><br>
+
+<h4>Your persona for <b>Implementation</b>-style tasks is </h4>
+<p><%- subPersonas.I_persona.name %></p>
+<h6>_________________________________</h6>
+<h4><%- subPersonas.I_persona.desc %></h4>
+<br><br>
+
+<h4>Your persona for <b>Verification</b>-style tasks is</h4>
+<p><%- subPersonas.V_persona.name %></p>
+<h6>_________________________________</h6>
+<h4><%- subPersonas.V_persona.desc %></h4>
+<br><br>
+<hr class="align-self-end">
+</div></div>
+
+
+        <!-- <div id="piechart"></div> -->
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+        <script type="text/javascript">
+        // Load google charts
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        // Draw the chart and set the chart values
+        function drawChart() {
+          var data = google.visualization.arrayToDataTable([
+          ['Persona', 'Respondants'],
+          ['Calculated', <%= metrics.numCalculated %>],
+          ['Experimental', <%= metrics.numExperimental %>],
+          ['Resourceful', <%= metrics.numResourceful %>]
+        ]);
+
+        let width = 550;
+        let height = 400;
+
+        let options = {
+         'title':'Overall Responses',
+         'width':width,
+         'height':height,
+         'fontSize': 20,
+         'backgroundColor': '#c5cfc4',
+         'legend': {
+           textStyle: {
+            fontSize: 12
+           }
+         },
+         'tooltip': {
+           textStyle: {
+             fontSize: 12
+           }
+         },
+         fontName: "Aldrich"
+       };
+
+          // Display the chart inside the <div> element with id="piechart"
+          var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+          chart.draw(data, options);
+        }
+
+        function copyText() {
+          /* Get the text field */
+          var copyText = document.getElementById("myInput");
+
+          /* Select the text field */
+          copyText.select();
+          copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+          /* Copy the text inside the text field */
+          document.execCommand("copy");
+
+          /* Alert the copied text */
+          var anchor = document.getElementById('copyButton');
+          anchor.title = 'Copied!';
+          // alert("Copied the text: " + copyText.value);
+        }
+        </script>
+
+
+        <br>
+        <h3 style="color:black">Overall Statistics</h3>
+        <p style="color:black">Here's a breakdown of all of the responses so far.</p>
+        <div id="piechart" align="center"></div>
+
+        <br>
+        <p style="color:black">Here's a breakdown of responses by each type of programming task: Debugging, Implementation, and Testing.</p>
+        <div class="row" style="align:center">
+
+        <div id="piechartD" class="col-md-4"></div>
+        <div id="piechartI" class="col-md-4"></div>
+        <div id="piechartV" class="col-md-4"></div>
+        </div>
+<br><br><br><br>
+          <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+          <script type="text/javascript">
+
+          // Load google charts
+          google.charts.load('current', {'packages':['corechart']});
+          google.charts.setOnLoadCallback(drawCharts);
+
+          // Draw the chart and set the chart values
+          function drawCharts() {
+            var dataD = google.visualization.arrayToDataTable([
+            ['Persona', 'Respondants'],
+            ['Calculated', <%= metrics.numCalculated_D %>],
+            ['Experimental', <%= metrics.numExperimental_D %>],
+            ['Resourceful', <%= metrics.numResourceful_D %>]
+          ]);
+            var dataV = google.visualization.arrayToDataTable([
+            ['Persona', 'Respondants'],
+            ['Calculated', <%= metrics.numCalculated_V %>],
+            ['Experimental', <%= metrics.numExperimental_V %>],
+            ['Resourceful', <%= metrics.numResourceful_V %>]
+          ]);
+            var dataI = google.visualization.arrayToDataTable([
+            ['Persona', 'Respondants'],
+            ['Calculated', <%= metrics.numCalculated_I %>],
+            ['Experimental', <%= metrics.numExperimental_I %>],
+            ['Resourceful', <%= metrics.numResourceful_I %>]
+          ]);
+
+          let width = 550;
+          let height = 400;
+          let optionsD = {
+           'title':'Overall Responses: Debug',
+           'width':0.8*width,
+           'height':0.8*height,
+           'fontSize': 20,
+           'backgroundColor': '#c5cfc4',
+           'legend': {
+             textStyle: {
+              fontSize: 12
+             }
+           },
+           'tooltip': {
+             textStyle: {
+               fontSize: 12
+             }
+           },
+           fontName: "Aldrich"
+         };
+         let optionsI = {
+          'title':'Overall Responses: Implementation',
+          'width':0.8*width,
+          'height':0.8*height,
+          'fontSize': 20,
+          'backgroundColor': '#c5cfc4',
+          'legend': {
+            textStyle: {
+             fontSize: 12
+            }
+          },
+          'tooltip': {
+            textStyle: {
+              fontSize: 12
+            }
+          },
+          fontName: "Aldrich"
+        };
+        let optionsV = {
+         'title':'Overall Responses: Testing',
+         'width':0.8*width,
+         'height':0.8*height,
+         'fontSize': 20,
+         'backgroundColor': '#c5cfc4',
+         'legend': {
+           textStyle: {
+            fontSize: 12
+           }
+         },
+         'tooltip': {
+           textStyle: {
+             fontSize: 12
+           }
+         },
+         fontName: "Aldrich"
+       };
+
+        // Display the chart inside the <div> element with id="piechart"
+        var chartD = new google.visualization.PieChart(document.getElementById('piechartD'));
+        chartD.draw(dataD, optionsD);
+        // Display the chart inside the <div> element with id="piechart"
+        var chartI = new google.visualization.PieChart(document.getElementById('piechartI'));
+        chartI.draw(dataI, optionsI);
+        // Display the chart inside the <div> element with id="piechart"
+        var chartV = new google.visualization.PieChart(document.getElementById('piechartV'));
+        chartV.draw(dataV, optionsV);
+      }
+          </script>
+</main>
+
+<footer>
+    <% include partials/footer %>
+</footer>
+
+</body>
+</html>
