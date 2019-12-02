@@ -15,8 +15,12 @@
     ],
     "rewrites": [
       {
-        "source": "**",
+        "source": "/results",
         "function": "results"
+      },
+      {
+        "source": "/bigben",
+        "function": "bigben"
       }
     ]
   },

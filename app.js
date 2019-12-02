@@ -8,9 +8,10 @@ app.set('view engine', 'ejs');
 // app.use("/route", express.static("foldername"));
 app.use('/public', express.static('public'));
 
-var d3 = require("d3");
-
 const firebase = require("firebase");
+
+let ejs = require("ejs");
+let fs = require('fs');
 // Required for side-effects
 require("firebase/firestore");
 
@@ -107,7 +108,13 @@ var resourceful = 0.66*(parseInt(data.ts5) + parseInt(data.ts6) + parseInt(data.
     let linkedin = '<a class="resp-sharing-button__link" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fgmu.az1.qualtrics.com%2Fjfe%2Fform%2FSV_cvDj3Vd3ZZvqAVT&amp;title=' + shareTitle + "&amp;summary=" + shareDesc + '%20Discover%20your%20programming%20persona%20here%21%20&amp;source=https%3A%2F%2Fgmu.az1.qualtrics.com%2Fjfe%2Fform%2FSV_cvDj3Vd3ZZvqAVT" target="_blank" rel="noopener" aria-label="LinkedIn">'
     console.log(twitter)
     console.log(linkedin)
-    res.render('index', {data: data, persona: persona.name, desc: persona.desc, subPersonas: subPersonas, twitter: twitter, linkedin: linkedin, metrics: metrics});
+
+    let file = fs.readFileSync('views/index.ejs', 'ascii');
+    let rendered = ejs.render(file, {data: data, persona: persona.name, desc: persona.desc, subPersonas: subPersonas, twitter: twitter, linkedin: linkedin, metrics: metrics});
+    console.log("\n\n\nEJS RENDER: ")
+    console.log(rendered);
+    res.status(200).send(rendered);
+    // res.render('index', {data: data, persona: persona.name, desc: persona.desc, subPersonas: subPersonas, twitter: twitter, linkedin: linkedin, metrics: metrics});
   })
     console.log("Document written with ID: ", docRef.id);
 })

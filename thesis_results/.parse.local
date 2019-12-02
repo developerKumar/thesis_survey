@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "_default": {
+      "link": "thesis_results"
+    },
+    "thesis_results": {
+      "applicationId": "BA0CvcIeiRzkfOQtjtT6Cn7SWxOradteV3fymzXa"
+    }
+  }
+}
