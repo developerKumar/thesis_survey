@@ -7,7 +7,7 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
-    "public": "views",
+    "public": "public",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -17,10 +17,6 @@
       {
         "source": "/results",
         "function": "results"
-      },
-      {
-        "source": "/bigben",
-        "function": "bigben"
       }
     ]
   },

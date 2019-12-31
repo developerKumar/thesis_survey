@@ -65,6 +65,12 @@
         color: #cbf2d6;
       }
 
+      em {
+        font-style: normal;
+        font-size: 120%;
+        text-transform: uppercase;
+      }
+
       .desc {
         color: #cbf2d6
       }
@@ -131,7 +137,7 @@
         font-size: smaller;
         font-family: Helvetica Neue,Helvetica,Arial,sans-serif
       }
-      
+
       #copyButton {
         background-color: #000000;
         border: 2px solid #FFFFFF;
@@ -216,44 +222,44 @@ body {
 <div class="jumbotron jumbotron-fluid shadow-sm p-3 mb-5 bg-white rounded">
 <div class="container container-fluid">
 <div class="desc">
-<p>The situational questions presented in the survey all fall into one of three categories of tasks:</p>
+<p>The programming questions you answered encompassed three categories of tasks:</p>
 <ul>
 <li><u>Debugging</u>
   <ul>
-      <li>These tasks are focused on diagnosing and fixing bugs, or errors, in the code.</li>
+      <li>Diagnosing and fixing bugs, or errors, in the code.</li>
   </ul>
 </li>
 <li><u>Implementation</u>
   <ul>
-      <li>These tasks involve implementing code, examplified by situations involving setting up objects and calling methods to implement expected functionality.</li>
+      <li>Implementing code, setting up objects and calling methods to implement expected functionality.</li>
   </ul>
 </li>
 <li><u>Verification</u>
   <ul>
-      <li>These tasks are focused on testing and verifying that your code is working as expected.</li>
+      <li>Testing and verifying that your code is working as expected.</li>
   </ul>
 </li>
 </ul>
-<p>These different types of tasks often call for different strategies. See how your persona differs in these contexts below.</p>
+<p>Different types of programming tasks often call for different strategies. See how your programming persona differs for these tasks.</p>
 <br><br>
 </div>
 
 <hr class="align-self-end">
 <br><br>
 
-<h4>Your persona for <b>Debugging</b>-style tasks is </h4>
+<h4>Your persona for <em>Debugging</em>-style tasks is </h4>
 <p><%- subPersonas.D_persona.name %></p>
 <h6>_________________________________</h6>
 <h4><%- subPersonas.D_persona.desc %></h4>
 <br><br>
 
-<h4>Your persona for <b>Implementation</b>-style tasks is </h4>
+<h4>Your persona for <em>Implementation</em>-style tasks is </h4>
 <p><%- subPersonas.I_persona.name %></p>
 <h6>_________________________________</h6>
 <h4><%- subPersonas.I_persona.desc %></h4>
 <br><br>
 
-<h4>Your persona for <b>Verification</b>-style tasks is</h4>
+<h4>Your persona for <em>Verification</em>-style tasks is</h4>
 <p><%- subPersonas.V_persona.name %></p>
 <h6>_________________________________</h6>
 <h4><%- subPersonas.V_persona.desc %></h4>
@@ -328,8 +334,8 @@ body {
 
 
         <br>
-        <h3 style="color:black">Overall Statistics</h3>
-        <p style="color:black">Here's a breakdown of all of the responses so far.</p>
+        <h3 style="color:black">How Do I Compare?</h3>
+        <p style="color:black">How do other developers typically approach prrograaming problems?</p>
         <div id="piechart" align="center"></div>
 
         <br>
@@ -440,7 +446,7 @@ body {
 </main>
 
 <footer>
-  <p class="text-center text-muted">© Copyright 2019 Cassandra Bailey - George Mason University</p>
+  <p class="text-center text-muted">Copyright 2019 Cassandra Bailey - George Mason University</p>
 </footer>
 
 </body>

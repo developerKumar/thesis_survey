@@ -1,41 +1,15 @@
 const functions = require('firebase-functions');
-
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
-
 var express = require('express');
 var app = express();
-
 // set the view engine to ejs
 app.set('view engine', 'ejs');
-
 // using app.use to serve up static CSS files in public/assets/ folder when /public link is called in ejs files
 // app.use("/route", express.static("foldername"));
 app.use('/public', express.static('public'));
-
 const firebase = require("firebase");
-
 let ejs = require("ejs");
 let fs = require('fs');
-// Required for side-effects
 require("firebase/firestore");
-
-exports.bigben = functions.https.onRequest((req, res) => {
-  console.log("test")
-  const hours = (new Date().getHours() % 12) + 1  // London is UTC + 1hr;
-  res.status(200).send(`<!doctype html>
-    <head>
-      <title>Time</title>
-    </head>
-    <body>
-      ${'BONG '.repeat(hours)}
-    </body>
-  </html>`);
-});
 
 // Initialize Cloud Firestore through Firebase
 firebase.initializeApp({
@@ -51,8 +25,6 @@ var metricsDocRef = "metricsDoc";
 var count = 0;
 
 exports.results = functions.https.onRequest((req, res) => {
-// function call_results(req, res) {
-  console.log(">>>INSIDE CALL RESULTS")
   var data = {
     dm: JSON.parse(req.query.dm),
     im: JSON.parse(req.query.im),
@@ -133,11 +105,8 @@ var resourceful = 0.66*(parseInt(data.ts5) + parseInt(data.ts6) + parseInt(data.
     let linkedin = '<a class="resp-sharing-button__link" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fgmu.az1.qualtrics.com%2Fjfe%2Fform%2FSV_cvDj3Vd3ZZvqAVT&amp;title=' + shareTitle + "&amp;summary=" + shareDesc + '%20Discover%20your%20programming%20persona%20here%21%20&amp;source=https%3A%2F%2Fgmu.az1.qualtrics.com%2Fjfe%2Fform%2FSV_cvDj3Vd3ZZvqAVT" target="_blank" rel="noopener" aria-label="LinkedIn">'
     let file = fs.readFileSync('views/index.ejs', 'ascii');
     let rendered = ejs.render(file, {data: data, persona: persona.name, desc: persona.desc, subPersonas: subPersonas, twitter: twitter, linkedin: linkedin, metrics: metrics});
-    console.log("\n\n\nEJS RENDER: ")
-    console.log(rendered);
     res.status(200).send(rendered);
   })
-    console.log("Document written with ID: ", docRef.id);
 })
 .catch(function(error) {
     console.error("Error adding document: ", error);
@@ -145,18 +114,6 @@ var resourceful = 0.66*(parseInt(data.ts5) + parseInt(data.ts6) + parseInt(data.
 });
 
 })
-// exports.results = functions.https.onRequest((req, res) => {
-//   res.status(200).send(`<!doctype html>
-//     <head>
-//       <title>Time</title>
-//     </head>
-//     <body>
-//       ${req}
-//     </body>
-//   </html>`);
-//   // call_results(req,res);
-// })
-// app.get('/results', call_results);
 
 app.listen(3000, function () {
   console.log('server running on port 3000');
@@ -238,6 +195,5 @@ function updateMetrics(metrics, persona, subPersonas, calculated, experimental, 
   } else if (subPersonas.V_persona.name == "Resourceful") {
     metrics.numResourceful_V += 1
   }
-
   return metrics;
 }
