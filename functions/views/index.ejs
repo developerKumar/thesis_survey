@@ -290,7 +290,6 @@ body {
         let height = 400;
 
         let options = {
-         'title':'Overall Responses',
          'width':width,
          'height':height,
          'fontSize': 20,
@@ -308,7 +307,6 @@ body {
          fontName: "Aldrich"
        };
 
-          // Display the chart inside the <div> element with id="piechart"
           var chart = new google.visualization.PieChart(document.getElementById('piechart'));
           chart.draw(data, options);
         }
@@ -334,14 +332,38 @@ body {
 
 
         <br>
-        <h3 style="color:black">How Do I Compare?</h3>
-        <p style="color:black">How do other developers typically approach prrograaming problems?</p>
-        <div id="piechart" align="center"></div>
-
+        <h2 style="color:black">How Do I Compare?</h2>
+        <h6 style="color:black">_________________________________</h6>
+        <p style="color:#383838">How do other developers typically approach programming problems?</p>
         <br>
-        <p style="color:black">Here's a breakdown of responses by each type of programming task: Debugging, Implementation, and Testing.</p>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="card">
+              <div class="card-header" style="color:black">My typical strategy</div>
+              <h6 style="color:black">_________________________________</h6>
+              <div class="card-body">
+                <h3 style="color:#383838"><%- persona %></h3>
+                <br>
+                <p style="color:#383838"><%- desc %></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="card">
+              <div class="card-header" style="color:black">Strategies of other developers</div>
+              <h6 style="color:black">_________________________________</h6>
+              <div class="card-body">
+                <div id="piechart" align="center"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <h6 style="color:black">_________________________________</h6>
+        <p style="color:#383838">How do other developers approach different programming tasks?</p>
+        <!-- <p style="color:black">Here's a breakdown of responses by each type of programming task: Debugging, Implementation, and Testing.</p> -->
         <div class="row" style="align:center">
-
+        <br>
         <div id="piechartD" class="col-md-4"></div>
         <div id="piechartI" class="col-md-4"></div>
         <div id="piechartV" class="col-md-4"></div>
@@ -421,6 +443,7 @@ body {
          'backgroundColor': '#c5cfc4',
          'legend': {
            textStyle: {
+            color:'#383838',
             fontSize: 12
            }
          },
