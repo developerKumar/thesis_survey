@@ -71,6 +71,10 @@
         text-transform: uppercase;
       }
 
+      table, th, td {
+        color: black;
+      }
+
       .desc {
         color: #cbf2d6
       }
@@ -364,9 +368,54 @@ body {
         <!-- <p style="color:black">Here's a breakdown of responses by each type of programming task: Debugging, Implementation, and Testing.</p> -->
         <div class="row" style="align:center">
         <br>
-        <div id="piechartD" class="col-md-4"></div>
-        <div id="piechartI" class="col-md-4"></div>
-        <div id="piechartV" class="col-md-4"></div>
+        <!-- <div class="card">
+          <div class="card-header" style="color:black">My typical strategy</div>
+          <h6 style="color:black">_________________________________</h6>
+          <div class="card-body">
+            <h3 style="color:#383838"><%- persona %></h3>
+            <br>
+            <p style="color:#383838"><%- desc %></p>
+          </div>
+        </div> -->
+
+        <table>
+          <tbody>
+            <tr>
+              <td>&nbsp;</td>
+              <td>Debugging<br></td>
+              <td>Implementation<br></td>
+              <td>Verification<br></td>
+            </tr>
+            <tr>
+              <td width:"25%"><br>My typical strategy</td>
+              <td width:"25%">
+                <p><%- subPersonas.D_persona.name %></p>
+                <h6>_________________________________</h6>
+                <h4><%- subPersonas.D_persona.desc %></h4>
+              </td>
+              <td width:"25%">
+                <p><%- subPersonas.I_persona.name %></p>
+                <h6>_________________________________</h6>
+                <h4><%- subPersonas.I_persona.desc %></h4>
+              </td>
+              <td width:"25%">
+                <p><%- subPersonas.V_persona.name %></p>
+                <h6>_________________________________</h6>
+                <h4><%- subPersonas.V_persona.desc %></h4>
+              </td>
+            </tr>
+            <tr>
+              <td width:"25%"><br>Strategies of other developers</td>
+              <td width:"25%"><div id="piechartD"></div></td>
+              <td width:"25%"><div id="piechartI"></div></td>
+              <td width:"25%"><div id="piechartV"></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- <div id="piechartD" class="col-md-3"></div>
+        <div id="piechartI" class="col-md-3"></div>
+        <div id="piechartV" class="col-md-3"></div> -->
         </div>
 <br><br><br><br>
           <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -400,15 +449,12 @@ body {
           let width = 550;
           let height = 400;
           let optionsD = {
-           'title':'Overall Responses: Debug',
            'width':0.8*width,
            'height':0.8*height,
            'fontSize': 20,
            'backgroundColor': '#c5cfc4',
            'legend': {
-             textStyle: {
-              fontSize: 12
-             }
+             position: 'none'
            },
            'tooltip': {
              textStyle: {
@@ -418,15 +464,12 @@ body {
            fontName: "Aldrich"
          };
          let optionsI = {
-          'title':'Overall Responses: Implementation',
           'width':0.8*width,
           'height':0.8*height,
           'fontSize': 20,
           'backgroundColor': '#c5cfc4',
           'legend': {
-            textStyle: {
-             fontSize: 12
-            }
+            position: 'none'
           },
           'tooltip': {
             textStyle: {
@@ -436,16 +479,12 @@ body {
           fontName: "Aldrich"
         };
         let optionsV = {
-         'title':'Overall Responses: Testing',
          'width':0.8*width,
          'height':0.8*height,
          'fontSize': 20,
          'backgroundColor': '#c5cfc4',
          'legend': {
-           textStyle: {
-            color:'#383838',
-            fontSize: 12
-           }
+           position: 'none'
          },
          'tooltip': {
            textStyle: {
