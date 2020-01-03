@@ -17,12 +17,14 @@
   },
   "homepage": "https://github.com/cassandrabailey293/thesis_survey#readme",
   "dependencies": {
+    "bootstrap": "^4.4.1",
     "ejs": "^2.7.1",
     "express": "^4.17.1",
     "firebase": "^7.5.0",
-    "python-shell": "^1.0.8",
-    "sharer.js": "^0.3.8",
     "firebase-admin": "^8.6.0",
-    "firebase-functions": "^3.3.0"
+    "firebase-functions": "^3.3.0",
+    "popper": "^1.0.1",
+    "python-shell": "^1.0.8",
+    "sharer.js": "^0.3.8"
   }
 }
