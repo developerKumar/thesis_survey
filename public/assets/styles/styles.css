@@ -70,6 +70,12 @@ hr {
 .resp-sharing-button--twitter:hover {
   background-color: #2795e9
 }
+.resp-sharing-button--whatsapp {
+  background-color: #35bea5
+}
+.resp-sharing-button--whatsapp:hover {
+  background-color: #35bea5
+}
 
 .resp-sharing-button--facebook {
   background-color: #3b5998
