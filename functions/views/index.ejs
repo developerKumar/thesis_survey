@@ -79,6 +79,11 @@
         color: #cbf2d6
       }
 
+      .table {
+         margin: auto;
+         width: 50% !important;
+      }
+
       .jumbotron {
         background-color: #000000
       }
@@ -365,60 +370,48 @@ body {
         <br>
         <h6 style="color:black">_________________________________</h6>
         <p style="color:#383838">How do other developers approach different programming tasks?</p>
-        <!-- <p style="color:black">Here's a breakdown of responses by each type of programming task: Debugging, Implementation, and Testing.</p> -->
-        <div class="row" style="align:center">
+        <!-- <div class="row" style="align:center"> -->
         <br>
-        <!-- <div class="card">
-          <div class="card-header" style="color:black">My typical strategy</div>
-          <h6 style="color:black">_________________________________</h6>
-          <div class="card-body">
-            <h3 style="color:#383838"><%- persona %></h3>
-            <br>
-            <p style="color:#383838"><%- desc %></p>
-          </div>
-        </div> -->
-
-        <table>
+        <div class="table-responsive">
+        <table class="table w-auto">
+          <thead>
+            <tr>
+              <th class="col-xs-3">&nbsp;</td>
+              <th class="col-xs-3" style='width:25px'>Debugging<br></td>
+              <th class="col-xs-3" style='width:25px'>Implementation<br></td>
+              <th class="col-xs-3" style='width:25px'>Verification<br></td>
+            </tr>
+          </thead>
           <tbody>
             <tr>
-              <td>&nbsp;</td>
-              <td>Debugging<br></td>
-              <td>Implementation<br></td>
-              <td>Verification<br></td>
-            </tr>
-            <tr>
-              <td width:"25%"><br>My typical strategy</td>
-              <td width:"25%">
+              <th scope="row"><br>My typical strategy</td>
+              <td>
                 <p><%- subPersonas.D_persona.name %></p>
                 <h6>_________________________________</h6>
                 <h4><%- subPersonas.D_persona.desc %></h4>
               </td>
-              <td width:"25%">
+              <td>
                 <p><%- subPersonas.I_persona.name %></p>
                 <h6>_________________________________</h6>
                 <h4><%- subPersonas.I_persona.desc %></h4>
               </td>
-              <td width:"25%">
+              <td>
                 <p><%- subPersonas.V_persona.name %></p>
                 <h6>_________________________________</h6>
                 <h4><%- subPersonas.V_persona.desc %></h4>
               </td>
             </tr>
             <tr>
-              <td width:"25%"><br>Strategies of other developers</td>
-              <td width:"25%"><div id="piechartD"></div></td>
-              <td width:"25%"><div id="piechartI"></div></td>
-              <td width:"25%"><div id="piechartV"></td>
+              <th scope="row"><br>Strategies of other developers</td>
+              <td><div id="piechartD"></div></td>
+              <td><div id="piechartI"></div></td>
+              <td><div id="piechartV"></td>
             </tr>
           </tbody>
         </table>
-
-        <!-- <div id="piechartD" class="col-md-3"></div>
-        <div id="piechartI" class="col-md-3"></div>
-        <div id="piechartV" class="col-md-3"></div> -->
-        </div>
+      <!-- </div> -->
+  </div>
 <br><br><br><br>
-          <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
           <script type="text/javascript">
 
           // Load google charts
